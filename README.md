@@ -2,11 +2,9 @@
 A REST API for tracking artists you want to see live and logging concerts you've attended, with real-time event discovery powered by the Ticketmaster API.
 
 ## Project proposal and breakdown
-1. Context / Subject Matter
-Concert Tracker & Wishlist API — a music/entertainment app that lets users track artists they want to see live and log shows they've attended.
-2. Problem It Solves
-Music fans have no centralized place to manage their concert life. They lose track of artists they want to see, forget shows they've attended, and miss out on upcoming events. This API solves that by giving users a personal concert hub — save artists to a wishlist, discover upcoming shows via Ticketmaster, and maintain an attended show log.
-3. Technical Components:
+1. **Context / Subject Matter**: Concert Tracker & Wishlist API — a music/entertainment app that lets users track artists they want to see live and log shows they've attended.
+2. **Problem It Solves**: Music fans have no centralized place to manage their concert life. They lose track of artists they want to see, forget shows they've attended, and miss out on upcoming events. This API solves that by giving users a personal concert hub — save artists to a wishlist, discover upcoming shows via Ticketmaster, and maintain an attended show log.
+3.**Technical Components:**
 - Framework: Express.js + MongoDB/Mongoose
 - Auth: JWT-based registration and login
 - External API: Ticketmaster Discovery API (free tier) — used to fetch upcoming events by artist
@@ -16,7 +14,7 @@ Music fans have no centralized place to manage their concert life. They lose tra
 - Indexes: unique compound index on user+artist to prevent duplicates; text index on artist name for search
 - Text search: search your saved artists by name or genre
 - Aggregation: stats endpoint — total shows attended, favorite venue, shows per year, average rating
-4. How I will meet the various project requirements:
+4. **How I will meet the various project requirements:**
 
 | Requirement | How |
 | --- | --- |
@@ -31,7 +29,7 @@ Music fans have no centralized place to manage their concert life. They lose tra
 
 ***Stretch goals***: show stats aggregation, simple front end
 
-5. Timeline
+5.** Timeline**
 
 | Week | Phase | Goals |
 | --- | --- | --- |
