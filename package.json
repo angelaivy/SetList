@@ -1,0 +1,43 @@
+{
+  "name": "setlist",
+  "version": "1.0.0",
+  "description": "A REST API for tracking artists you want to see live and logging concerts you've attended, with real-time event discovery powered by the Ticketmaster API.",
+  "homepage": "https://github.com/angelaivy/SetList#readme",
+  "bugs": {
+    "url": "https://github.com/angelaivy/SetList/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelaivy/SetList.git"
+  },
+  "license": "ISC",
+  "author": "angelazer",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "lint": "eslint .",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --check . --write"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^9.39.4",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.3"
+  }
+}
