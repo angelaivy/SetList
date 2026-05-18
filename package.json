@@ -16,6 +16,7 @@
   "scripts": {
     "dev": "nodemon -r @babel/register db.js",
     "test": "jest",
+    "cover": "jest --coverage",
     "lint": "eslint .",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --check . --write"
