@@ -4,6 +4,6 @@ import routes from './routes/auth.js';
 const server = express();
 server.use(express.json());
 
-server.use(routes);
+server.use('/auth', routes)
 
 export default server;
