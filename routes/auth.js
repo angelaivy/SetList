@@ -77,7 +77,6 @@ router.post('/delete', isAuthorized, async (req, res) => {
       return res.status(401).send('Not found');
     }
     return res.status(200).send('account deleted successfully');
-    
   } catch (e) {
     return res.status(500).send(e.message);
   }

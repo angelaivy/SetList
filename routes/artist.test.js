@@ -1,4 +1,4 @@
-import request from 'supertest'
+import request from 'supertest';
 import * as testUtils from '../testUtils';
 import server from '../server';
 import models from '../models';
@@ -14,10 +14,10 @@ describe('/artist', () => {
   };
 
   const artist = {
-    "name": "System of a Down",
-    "genre": "Nu metal",
-    "notes": "One of my favorite all time bands"
-  }
+    name: 'System of a Down',
+    genre: 'Nu metal',
+    notes: 'One of my favorite all time bands',
+  };
 
   let token;
 
@@ -29,16 +29,18 @@ describe('/artist', () => {
 
   describe('POST /artist', () => {
     it('should return 200 and create a new artist', async () => {
-      const res = await request(server).post('/artist')
+      const res = await request(server)
+        .post('/artist')
         .set('Authorization', `Bearer ${token}`)
         .send(artist);
       expect(res.statusCode).toEqual(200);
-      const findArtist = await models.Artist.findOne({name: artist.name});
+      const findArtist = await models.Artist.findOne({ name: artist.name });
       expect(findArtist).toMatchObject({ name: 'System of a Down' });
     });
 
     it('should return 500 if artist name is not provided', async () => {
-      const res = await request(server).post('/artist')
+      const res = await request(server)
+        .post('/artist')
         .set('Authorization', `Bearer ${token}`)
         .send({});
       expect(res.statusCode).toEqual(500);
@@ -47,7 +49,8 @@ describe('/artist', () => {
 
   describe('GET /artist', () => {
     it('should return 200 and get all artists of the user', async () => {
-      const res = await request(server).get('/artist')
+      const res = await request(server)
+        .get('/artist')
         .set('Authorization', `Bearer ${token}`);
       expect(res.statusCode).toEqual(200);
     });
@@ -55,31 +58,37 @@ describe('/artist', () => {
 
   describe('PUT /artist/:id', () => {
     let originalArtist;
-     beforeEach(async () => {
-      const createArtistRes = await request(server).post('/artist')
+    beforeEach(async () => {
+      const createArtistRes = await request(server)
+        .post('/artist')
         .set('Authorization', `Bearer ${token}`)
         .send(artist);
       originalArtist = createArtistRes.body;
-     });
+    });
 
     it('should return 200 and update artist by id', async () => {
-      const res = await request(server).put(`/artist/${originalArtist._id}`)
+      const res = await request(server)
+        .put(`/artist/${originalArtist._id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({ notes: 'Updated note test' });
       expect(res.statusCode).toEqual(200);
-      const updatedArtist = await models.Artist.findById(originalArtist._id).lean();
-      expect(updatedArtist).toMatchObject({ notes: 'Updated note test' })
+      const updatedArtist = await models.Artist.findById(
+        originalArtist._id,
+      ).lean();
+      expect(updatedArtist).toMatchObject({ notes: 'Updated note test' });
     });
 
     it('should return 404 if id is not provided', async () => {
-      const res = await request(server).put(`/artist`)
+      const res = await request(server)
+        .put(`/artist`)
         .set('Authorization', `Bearer ${token}`)
         .send({ notes: 'Updated note test' });
       expect(res.statusCode).toEqual(404);
     });
 
     it('should return 500 if no body', async () => {
-      const res = await request(server).put(`/artist/${originalArtist._id}`)
+      const res = await request(server)
+        .put(`/artist/${originalArtist._id}`)
         .set('Authorization', `Bearer ${token}`)
         .send();
       expect(res.statusCode).toEqual(500);
@@ -88,15 +97,17 @@ describe('/artist', () => {
 
   describe('DELETE /artist/:id', () => {
     let originalArtist;
-     beforeEach(async () => {
-      const createArtistRes = await request(server).post('/artist')
+    beforeEach(async () => {
+      const createArtistRes = await request(server)
+        .post('/artist')
         .set('Authorization', `Bearer ${token}`)
         .send(artist);
       originalArtist = createArtistRes.body;
-     });
+    });
 
     it('should return 200 and artist should be deleted', async () => {
-      const res = await request(server).delete(`/artist/${originalArtist._id}`)
+      const res = await request(server)
+        .delete(`/artist/${originalArtist._id}`)
         .set('Authorization', `Bearer ${token}`);
       expect(res.statusCode).toEqual(200);
       const findArtist = await models.Artist.findById(originalArtist._id);

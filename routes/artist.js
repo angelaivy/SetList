@@ -8,11 +8,11 @@ router.post('/', isAuthorized, async (req, res) => {
   try {
     const { body, user } = req;
     const newArtist = await Artist.createArtist({
-      userId: user._id, 
+      userId: user._id,
       name: body.name,
       genre: body.genre,
-      notes: body.notes
-    })
+      notes: body.notes,
+    });
     return res.status(200).send(newArtist);
   } catch (e) {
     return res.status(500).send(e.message);
@@ -33,14 +33,11 @@ router.put('/:id', isAuthorized, async (req, res) => {
   try {
     const { body } = req;
     const { id } = req.params;
-    const updatedArtist = await Artist.updateArtist(
-      id,
-      {
-        name: body.name,
-        genre: body.genre,
-        notes: body.notes
-      }
-    )
+    const updatedArtist = await Artist.updateArtist(id, {
+      name: body.name,
+      genre: body.genre,
+      notes: body.notes,
+    });
     return res.status(200).send(updatedArtist);
   } catch (e) {
     return res.status(500).send(e.message);

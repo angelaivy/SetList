@@ -6,8 +6,8 @@ jobs:
     env:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
     steps:
-    - uses: actions/checkout@v2
-    - name: Install modules
-      run: npm install
-    - name: Run tests
-      run: npm test
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: npm install
+      - name: Run tests
+        run: npm test

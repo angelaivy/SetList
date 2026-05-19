@@ -9,7 +9,7 @@ let setConnection;
 if (isRailway) {
   setConnection = MONGO_CONNECT_URI;
 } else {
-  setConnection = 'mongodb://127.0.0.1/setlist'
+  setConnection = 'mongodb://127.0.0.1/setlist';
 }
 
 mongoose
