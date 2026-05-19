@@ -14,6 +14,7 @@
   "author": "angelazer",
   "main": "db.js",
   "scripts": {
+    "start": "node -r @babel/register db.js",
     "dev": "nodemon -r @babel/register db.js",
     "test": "jest",
     "cover": "jest --coverage",
