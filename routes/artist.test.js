@@ -15,8 +15,9 @@ describe('/artist', () => {
 
   const artist = {
     name: 'System of a Down',
-    genre: 'Nu metal',
+    genre: 'Alt/Nu metal',
     notes: 'One of my favorite all time bands',
+    favorite: true,
   };
 
   let token;
