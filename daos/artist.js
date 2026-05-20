@@ -17,12 +17,9 @@ export const updateArtist = async (id, updatedObj) => {
     return null;
   }
   return models.Artist.findByIdAndUpdate(
-    { _id: id },
-    {
-      name: updatedObj.name,
-      genre: updatedObj.genre,
-      notes: updatedObj.notes,
-    },
+    id,
+    { $set: updatedObj },
+    { returnDocument: 'after' }
   );
 };
 

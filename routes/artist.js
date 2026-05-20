@@ -6,12 +6,12 @@ const router = express.Router();
 
 router.post('/', isAuthorized, async (req, res) => {
   try {
-    const { body, user } = req;
+    const { name, genre, notes } = req.body;
     const newArtist = await Artist.createArtist({
-      userId: user._id,
-      name: body.name,
-      genre: body.genre,
-      notes: body.notes,
+      userId: req.user._id,
+      name,
+      genre,
+      notes
     });
     return res.status(200).send(newArtist);
   } catch (e) {
@@ -31,12 +31,12 @@ router.get('/', isAuthorized, async (req, res) => {
 
 router.put('/:id', isAuthorized, async (req, res) => {
   try {
-    const { body } = req;
+    const { name, genre, notes } = req.body;
     const { id } = req.params;
     const updatedArtist = await Artist.updateArtist(id, {
-      name: body.name,
-      genre: body.genre,
-      notes: body.notes,
+      name,
+      genre,
+      notes,
     });
     return res.status(200).send(updatedArtist);
   } catch (e) {
