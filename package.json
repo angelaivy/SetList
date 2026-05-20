@@ -12,22 +12,27 @@
   },
   "license": "ISC",
   "author": "angelazer",
-  "type": "module",
   "main": "db.js",
   "scripts": {
-    "dev": "nodemon db.js",
-    "test": "jest",
+    "start": "node -r @babel/register db.js",
+    "dev": "nodemon -r @babel/register db.js",
+    "test": "jest --runInBand",
+    "cover": "jest --coverage",
     "lint": "eslint .",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --check . --write"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.6.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.5",
+    "@babel/register": "^7.29.3",
     "@shelf/jest-mongodb": "^6.0.2",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
