@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 import User from './models/user';
+import Artist from './models/artist';
+import Show from './models/show';
 
-const models = [User];
+const models = [User, Artist, Show];
 
 export const connectDB = async () => {
   await mongoose.connect(process.env.MONGO_URL, {});
