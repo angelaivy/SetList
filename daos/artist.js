@@ -29,3 +29,10 @@ export const deleteArtist = async (id) => {
   }
   return models.Artist.findByIdAndDelete(id);
 };
+
+export const searchArtists = async (query) => {
+  if (!query) {
+    return null;
+  }
+  return models.Artist.find({ $text: { $search: query } });
+};

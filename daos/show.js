@@ -17,3 +17,10 @@ export const deleteShow = async (id) => {
   if (!id) return null;
   return models.Show.findByIdAndDelete(id);
 }
+
+export const searchShows = async (query) => {
+  if (!query) {
+    return null;
+  }
+  return models.Show.find({ $text: { $search: query } });
+};

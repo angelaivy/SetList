@@ -78,4 +78,17 @@ router.delete('/:id', isAuthorized, async (req, res) => {
   }
 });
 
+router.get('/search', isAuthorized, async (req, res) => {
+  try {
+    const { query } = req.query;
+    if (!query || typeof query !== 'string') {
+      return res.status(400).send('Search query required');
+    }
+    const results = await Show.searchShows(query);
+    return res.status(200).send(results);
+  } catch (e) {
+    return res.status(500).send(e.message);
+  }
+});
+
 export default router;
