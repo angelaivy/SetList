@@ -26,5 +26,7 @@ const showSchema = new mongoose.Schema(
 // Sparse true allows multiple null entries for ticketmasterId; 
 // We only want unique when the entry comes from ticketmaster itself.
 showSchema.index({ ticketmasterId: 1 }, { unique: true, sparse: true })
+showSchema.index({ userId: 1 });
+showSchema.index({ name: 'text', 'showDetails.artist': 'text', 'showDetails.venue': 'text'});
 
 export default mongoose.model('Show', showSchema);

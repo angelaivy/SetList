@@ -15,4 +15,7 @@ const artistSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+artistSchema.index({ userId: 1 });
+artistSchema.index({ name: 'text', genre: 'text' });
+
 export default mongoose.model('Artist', artistSchema);
