@@ -115,4 +115,31 @@ describe('/artist', () => {
       expect(findArtist).toBeNull();
     });
   });
+
+  describe('GET /artist/search', () => {
+      let originalArtist;
+      beforeEach(async () => {
+        const createArtistRes = await request(server)
+          .post('/artist')
+          .set('Authorization', `Bearer ${token}`)
+          .send(artist);
+        originalArtist = createArtistRes.body;
+      });
+  
+      it('should return 200 and artists should be returned', async () => {
+        const res = await request(server)
+          .get(`/artist/search?query=System of a down`)
+          .set('Authorization', `Bearer ${token}`);
+        expect(res.statusCode).toEqual(200);
+        const findArtist = await models.Artist.findById(originalArtist._id);
+        expect(res.body[0]).toEqual(JSON.parse(JSON.stringify(findArtist)));
+      });
+  
+      it('should return 400 if no query is provided', async () => {
+        const res = await request(server)
+          .get(`/artist/search`)
+          .set('Authorization', `Bearer ${token}`);
+        expect(res.statusCode).toEqual(400);
+      });
+    });
 });

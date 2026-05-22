@@ -134,4 +134,31 @@ describe('/show', () => {
       expect(findShow).toBeNull();
     });
   });
+
+  describe('GET /show/search', () => {
+    let originalShow;
+    beforeEach(async () => {
+      const createShowRes = await request(server)
+        .post('/show')
+        .set('Authorization', `Bearer ${token}`)
+        .send(show);
+      originalShow = createShowRes.body;
+    });
+
+    it('should return 200 and shows should be returned', async () => {
+      const res = await request(server)
+        .get(`/show/search?query=Lettuce`)
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.statusCode).toEqual(200);
+      const findShow = await models.Show.findById(originalShow._id);
+      expect(res.body[0]).toEqual(JSON.parse(JSON.stringify(findShow)));
+    });
+
+    it('should return 400 if no query is provided', async () => {
+      const res = await request(server)
+        .get(`/show/search`)
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.statusCode).toEqual(400);
+    });
+  });
 });

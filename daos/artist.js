@@ -5,17 +5,7 @@ export const createArtist = async (artistObj) =>
 
 export const getArtists = async (userId) => models.Artist.find(userId);
 
-export const getArtistById = async (id) => {
-  if (!id) {
-    return null;
-  }
-  return models.Artist.findById(id);
-};
-
 export const updateArtist = async (id, updatedObj) => {
-  if (!id || !updatedObj) {
-    return null;
-  }
   return models.Artist.findByIdAndUpdate(
     id,
     { $set: updatedObj },
@@ -23,16 +13,8 @@ export const updateArtist = async (id, updatedObj) => {
   );
 };
 
-export const deleteArtist = async (id) => {
-  if (!id) {
-    return null;
-  }
-  return models.Artist.findByIdAndDelete(id);
-};
+export const deleteArtist = async (id) => 
+  models.Artist.findByIdAndDelete(id);
 
-export const searchArtists = async (query) => {
-  if (!query) {
-    return null;
-  }
-  return models.Artist.find({ $text: { $search: query } });
-};
+export const searchArtists = async (query) => 
+  models.Artist.find({ $text: { $search: query } });
