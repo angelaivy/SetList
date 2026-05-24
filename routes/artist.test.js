@@ -13,6 +13,11 @@ describe('/artist', () => {
     password: '123password',
   };
 
+   const user2 = {
+    email: 'angelaartist2@mail.com',
+    password: '123password456',
+  };
+
   const artist = {
     name: 'System of a Down',
     genre: 'Alt/Nu metal',
@@ -21,11 +26,16 @@ describe('/artist', () => {
   };
 
   let token;
+  let user2Token;
 
   beforeEach(async () => {
     await request(server).post('/auth/signup').send(user);
     const resLogin = await request(server).post('/auth/login').send(user);
     token = resLogin.body.token;
+
+    await request(server).post('/auth/signup').send(user2);
+    const res2Login = await request(server).post('/auth/login').send(user2);
+    user2Token = res2Login.body.token;
   });
 
   describe('POST /artist', () => {
@@ -54,6 +64,13 @@ describe('/artist', () => {
         .get('/artist')
         .set('Authorization', `Bearer ${token}`);
       expect(res.statusCode).toEqual(200);
+    });
+
+     it('should return 401 if not a user', async () => {
+      const res = await request(server)
+        .get('/artist')
+        .set('Authorization', `Bearer 12345`);
+      expect(res.statusCode).toEqual(401);
     });
   });
 
@@ -94,6 +111,14 @@ describe('/artist', () => {
         .send();
       expect(res.statusCode).toEqual(500);
     });
+
+    it('should return 401 if user is not the user logged in', async () => {
+      const res = await request(server)
+        .put(`/artist/${originalArtist._id}`)
+        .set('Authorization', `Bearer ${user2Token}`)
+        .send({ notes: 'Updated note test' });
+      expect(res.statusCode).toEqual(401);
+    });
   });
 
   describe('DELETE /artist/:id', () => {
@@ -113,6 +138,13 @@ describe('/artist', () => {
       expect(res.statusCode).toEqual(200);
       const findArtist = await models.Artist.findById(originalArtist._id);
       expect(findArtist).toBeNull();
+    });
+
+    it('should return 401 if artist does not belong to user', async () => {
+      const res = await request(server)
+        .delete(`/artist/${originalArtist._id}`)
+        .set('Authorization', `Bearer ${user2Token}`);
+      expect(res.statusCode).toEqual(401);
     });
   });
 
