@@ -4,7 +4,6 @@ import { isAuthorized } from '../middleware/auth';
 
 const router = express.Router();
 
-
 router.post('/', isAuthorized, async (req, res) => {
   try {
     const { 
@@ -38,6 +37,9 @@ router.post('/', isAuthorized, async (req, res) => {
 router.get('/', isAuthorized, async (req, res) => {
   try {
     const getAllUserShows = await Show.getShows({ userId: req.user._id });
+    if (!getAllUserShows) {
+      return sendStatus(401);
+    }
     return res.status(200).send(getAllUserShows);
   } catch (e) {
     return res.status(500).send(e.message);
@@ -55,14 +57,20 @@ router.put('/:id', isAuthorized, async (req, res) => {
       ticketmasterId 
     } = req.body;
     const { id } = req.params;
-    const updatedShow = await Show.updateShow(id, {
-      name, 
-      showDetails, 
-      notes, 
-      rating, 
-      status, 
-      ticketmasterId
+    const updatedShow = await Show.updateShow(
+      id,
+      req.user._id, 
+      {
+        name, 
+        showDetails, 
+        notes, 
+        rating, 
+        status, 
+        ticketmasterId
     });
+    if (!updatedShow) {
+      return res.sendStatus(401);
+    }
     return res.status(200).send(updatedShow);
   } catch (e) {
     return res.status(500).send(e.message);
@@ -71,8 +79,11 @@ router.put('/:id', isAuthorized, async (req, res) => {
 
 router.delete('/:id', isAuthorized, async (req, res) => {
   try {
-    await Show.deleteShow(req.params.id);
-    return res.status(200).send('show successfully deleted');
+    const showToDelete = await Show.deleteShow(req.params.id, req.user._id);
+    if (!showToDelete) {
+      return res.sendStatus(401);
+    }
+    return res.sendStatus(200).send('show successfully deleted');
   } catch (e) {
     return res.status(500).send(e.message);
   }

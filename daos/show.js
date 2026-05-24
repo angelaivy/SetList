@@ -4,23 +4,16 @@ export const createShow = async (showObj) => models.Show.create(showObj);
 
 export const getShows = async (userId) => models.Show.find(userId);
 
-export const updateShow = async (id, updatedObj) => {
-  if (!id || !updatedObj) return null;
-  return models.Show.findByIdAndUpdate(
-    id,
+export const updateShow = async (id, userId, updatedObj) => {
+  return models.Show.findOneAndUpdate(
+    { _id: id, userId },
     { $set: updatedObj },
     { returnDocument: 'after' }
   );
 }
 
-export const deleteShow = async (id) => {
-  if (!id) return null;
-  return models.Show.findByIdAndDelete(id);
-}
+export const deleteShow = async (id, userId) =>
+  models.Show.findOneAndDelete({ _id: id, userId });
 
-export const searchShows = async (query) => {
-  if (!query) {
-    return null;
-  }
-  return models.Show.find({ $text: { $search: query } });
-};
+export const searchShows = async (query) => 
+  models.Show.find({ $text: { $search: query } });

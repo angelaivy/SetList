@@ -23,6 +23,9 @@ router.get('/', isAuthorized, async (req, res) => {
   try {
     const { user } = req;
     const getUserArtists = await Artist.getArtists({ userId: user._id });
+    if (!getUserArtists) {
+      return res.sendStatus(401);
+    }
     return res.status(200).send(getUserArtists);
   } catch (e) {
     return res.status(500).send(e.message);
@@ -33,11 +36,17 @@ router.put('/:id', isAuthorized, async (req, res) => {
   try {
     const { name, genre, notes } = req.body;
     const { id } = req.params;
-    const updatedArtist = await Artist.updateArtist(id, {
-      name,
-      genre,
-      notes,
+    const updatedArtist = await Artist.updateArtist(
+      id,
+      req.user._id,
+      {
+        name,
+        genre,
+        notes,
     });
+    if (!updatedArtist) {
+      return res.sendStatus(401);
+    }
     return res.status(200).send(updatedArtist);
   } catch (e) {
     return res.status(500).send(e.message);
@@ -46,8 +55,11 @@ router.put('/:id', isAuthorized, async (req, res) => {
 
 router.delete('/:id', isAuthorized, async (req, res) => {
   try {
-    await Artist.deleteArtist(req.params.id);
-    return res.status(200).send('artist successfully deleted');
+    const artistToDelete = await Artist.deleteArtist(req.params.id, req.user._id);
+    if (!artistToDelete) {
+      return res.sendStatus(401);
+    }
+    return res.status(200).send('show successfully deleted');
   } catch (e) {
     return res.status(500).send(e.message);
   }
