@@ -9,14 +9,17 @@ const tmApiEndpoint = `https://app.ticketmaster.com/discovery/v2/events.json?cla
 
 router.get('/', async (req, res) => {
    try {
-    const response = await fetch(tmApiEndpoint);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-    const result = await response.json();
-    res.status(200).json(result)
+      const response = await fetch(tmApiEndpoint);
+      if (response.status === 401) {
+        return res.sendStatus(401)
+      }
+      if (!response.ok) {
+        return res.status(400).send(response.status)
+      }
+      const result = await response.json();
+      return res.status(200).json(result)
     } catch (e) {
-    res.status(500).send(e.message)
+      return res.status(500).send(e.message)
   }
 })
 
