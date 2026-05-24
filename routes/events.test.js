@@ -6,7 +6,7 @@ describe('/events', () => {
   beforeAll(testUtils.connectDB);
   afterAll(testUtils.stopDB);
   afterEach(testUtils.clearDB);
-  
+
   beforeAll(() => {
     global.fetch = jest.fn();
   });
@@ -20,12 +20,11 @@ describe('/events', () => {
   const page = 1;
   const tmApiEndpoint = `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&size=${size}&page=${page}&apikey=${TICKETMASTER_API_KEY}`;
 
-
   it('returns 200 & api results with response ok', async () => {
     const mockData = {
-      artist: 'System of a down', 
-      venue: 'White River Ampitheatre' 
-    }
+      artist: 'System of a down',
+      venue: 'White River Ampitheatre',
+    };
 
     fetch.mockResolvedValue({
       status: 200,
@@ -37,7 +36,7 @@ describe('/events', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual(mockData);
     expect(fetch).toHaveBeenCalledWith(tmApiEndpoint);
-  })
+  });
 
   it('returns 400 and response status if not ok', async () => {
     fetch.mockResolvedValue({
@@ -46,7 +45,7 @@ describe('/events', () => {
     });
 
     const res = await request(server).get('/events');
-    expect(res.status).toEqual(400)
+    expect(res.status).toEqual(400);
     expect(fetch).toHaveBeenCalledWith(tmApiEndpoint);
   });
 
@@ -57,13 +56,13 @@ describe('/events', () => {
     });
 
     const res = await request(server).get('/events');
-    expect(res.status).toEqual(401)
+    expect(res.status).toEqual(401);
     expect(fetch).toHaveBeenCalledWith(tmApiEndpoint);
   });
 
   it('returns 500 on api call error', async () => {
-    fetch.mockRejectedValue(new Error('some error message'))
+    fetch.mockRejectedValue(new Error('some error message'));
     const res = await request(server).get('/events');
-    expect(res.status).toEqual(500)
+    expect(res.status).toEqual(500);
   });
 });

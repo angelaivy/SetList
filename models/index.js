@@ -5,5 +5,5 @@ import Show from './show';
 export default {
   User,
   Artist,
-  Show
+  Show,
 };

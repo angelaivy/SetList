@@ -13,7 +13,7 @@ describe('/artist', () => {
     password: '123password',
   };
 
-   const user2 = {
+  const user2 = {
     email: 'angelaartist2@mail.com',
     password: '123password456',
   };
@@ -66,7 +66,7 @@ describe('/artist', () => {
       expect(res.statusCode).toEqual(200);
     });
 
-     it('should return 401 if not a user', async () => {
+    it('should return 401 if not a user', async () => {
       const res = await request(server)
         .get('/artist')
         .set('Authorization', `Bearer 12345`);
@@ -149,29 +149,29 @@ describe('/artist', () => {
   });
 
   describe('GET /artist/search', () => {
-      let originalArtist;
-      beforeEach(async () => {
-        const createArtistRes = await request(server)
-          .post('/artist')
-          .set('Authorization', `Bearer ${token}`)
-          .send(artist);
-        originalArtist = createArtistRes.body;
-      });
-  
-      it('should return 200 and artists should be returned', async () => {
-        const res = await request(server)
-          .get(`/artist/search?query=System of a down`)
-          .set('Authorization', `Bearer ${token}`);
-        expect(res.statusCode).toEqual(200);
-        const findArtist = await models.Artist.findById(originalArtist._id);
-        expect(res.body[0]).toEqual(JSON.parse(JSON.stringify(findArtist)));
-      });
-  
-      it('should return 400 if no query is provided', async () => {
-        const res = await request(server)
-          .get(`/artist/search`)
-          .set('Authorization', `Bearer ${token}`);
-        expect(res.statusCode).toEqual(400);
-      });
+    let originalArtist;
+    beforeEach(async () => {
+      const createArtistRes = await request(server)
+        .post('/artist')
+        .set('Authorization', `Bearer ${token}`)
+        .send(artist);
+      originalArtist = createArtistRes.body;
     });
+
+    it('should return 200 and artists should be returned', async () => {
+      const res = await request(server)
+        .get(`/artist/search?query=System of a down`)
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.statusCode).toEqual(200);
+      const findArtist = await models.Artist.findById(originalArtist._id);
+      expect(res.body[0]).toEqual(JSON.parse(JSON.stringify(findArtist)));
+    });
+
+    it('should return 400 if no query is provided', async () => {
+      const res = await request(server)
+        .get(`/artist/search`)
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.statusCode).toEqual(400);
+    });
+  });
 });

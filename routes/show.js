@@ -6,24 +6,18 @@ const router = express.Router();
 
 router.post('/', isAuthorized, async (req, res) => {
   try {
-    const { 
-      name, 
-      showDetails, 
-      notes, 
-      rating, 
-      status, 
-      ticketmasterId 
-    } = req.body;
-    
+    const { name, showDetails, notes, rating, status, ticketmasterId } =
+      req.body;
+
     const newShow = await Show.createShow({
       userId: req.user._id,
-      name, 
-      showDetails, 
-      notes, 
-      rating, 
-      status, 
-      ticketmasterId
-    })
+      name,
+      showDetails,
+      notes,
+      rating,
+      status,
+      ticketmasterId,
+    });
     return res.status(200).send(newShow);
   } catch (e) {
     // If duplicate sign up send 409.
@@ -32,41 +26,32 @@ router.post('/', isAuthorized, async (req, res) => {
     }
     return res.status(500).send(e.message);
   }
-})
+});
 
 router.get('/', isAuthorized, async (req, res) => {
   try {
     const getAllUserShows = await Show.getShows({ userId: req.user._id });
     if (!getAllUserShows) {
-      return sendStatus(401);
+      return res.sendStatus(401);
     }
     return res.status(200).send(getAllUserShows);
   } catch (e) {
     return res.status(500).send(e.message);
   }
-})
+});
 
 router.put('/:id', isAuthorized, async (req, res) => {
   try {
-    const { 
-      name, 
-      showDetails, 
-      notes, 
-      rating, 
-      status, 
-      ticketmasterId 
-    } = req.body;
+    const { name, showDetails, notes, rating, status, ticketmasterId } =
+      req.body;
     const { id } = req.params;
-    const updatedShow = await Show.updateShow(
-      id,
-      req.user._id, 
-      {
-        name, 
-        showDetails, 
-        notes, 
-        rating, 
-        status, 
-        ticketmasterId
+    const updatedShow = await Show.updateShow(id, req.user._id, {
+      name,
+      showDetails,
+      notes,
+      rating,
+      status,
+      ticketmasterId,
     });
     if (!updatedShow) {
       return res.sendStatus(401);

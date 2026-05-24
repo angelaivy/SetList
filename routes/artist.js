@@ -11,7 +11,7 @@ router.post('/', isAuthorized, async (req, res) => {
       userId: req.user._id,
       name,
       genre,
-      notes
+      notes,
     });
     return res.status(200).send(newArtist);
   } catch (e) {
@@ -36,13 +36,10 @@ router.put('/:id', isAuthorized, async (req, res) => {
   try {
     const { name, genre, notes } = req.body;
     const { id } = req.params;
-    const updatedArtist = await Artist.updateArtist(
-      id,
-      req.user._id,
-      {
-        name,
-        genre,
-        notes,
+    const updatedArtist = await Artist.updateArtist(id, req.user._id, {
+      name,
+      genre,
+      notes,
     });
     if (!updatedArtist) {
       return res.sendStatus(401);
@@ -55,7 +52,10 @@ router.put('/:id', isAuthorized, async (req, res) => {
 
 router.delete('/:id', isAuthorized, async (req, res) => {
   try {
-    const artistToDelete = await Artist.deleteArtist(req.params.id, req.user._id);
+    const artistToDelete = await Artist.deleteArtist(
+      req.params.id,
+      req.user._id,
+    );
     if (!artistToDelete) {
       return res.sendStatus(401);
     }

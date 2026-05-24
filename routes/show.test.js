@@ -19,17 +19,17 @@ describe('/show', () => {
   };
 
   const show = {
-    "name": "Lettuce with the Oregon Symphony",
-    "showDetails": {
-        "artist": "Lettuce",
-        "venue": "Portland Symphony Hall",
-        "dateRaw": "May 2, 2026"
+    name: 'Lettuce with the Oregon Symphony',
+    showDetails: {
+      artist: 'Lettuce',
+      venue: 'Portland Symphony Hall',
+      dateRaw: 'May 2, 2026',
     },
-    "notes": "Saw old friends, great show!",
-    "rating": 5,
-    "status": "Attended",
-    "ticketmasterId": "123456789"
-  }
+    notes: 'Saw old friends, great show!',
+    rating: 5,
+    status: 'Attended',
+    ticketmasterId: '123456789',
+  };
 
   let token;
   let user2Token;
@@ -52,7 +52,9 @@ describe('/show', () => {
         .send(show);
       expect(res.statusCode).toEqual(200);
       const findShow = await models.Show.findOne({ name: show.name });
-      expect(findShow).toMatchObject({ name: 'Lettuce with the Oregon Symphony' });
+      expect(findShow).toMatchObject({
+        name: 'Lettuce with the Oregon Symphony',
+      });
     });
 
     it('should return 409 when trying to create an existing show with a ticketmasterId', async () => {
@@ -67,7 +69,7 @@ describe('/show', () => {
         .send(show);
       expect(res1.statusCode).toEqual(409);
     });
-  
+
     it('should return 500 if show name is not provided', async () => {
       const res = await request(server)
         .post('/show')
@@ -109,9 +111,7 @@ describe('/show', () => {
         .set('Authorization', `Bearer ${token}`)
         .send({ notes: 'Updated note test' });
       expect(res.statusCode).toEqual(200);
-      const updatedShow = await models.Show.findById(
-        originalShow._id,
-      ).lean();
+      const updatedShow = await models.Show.findById(originalShow._id).lean();
       expect(updatedShow).toMatchObject({ notes: 'Updated note test' });
     });
 
