@@ -1,3 +1,8 @@
+# Proof of concept UPDATE (week 8)
+
+I have all requirements for the final done. It's currently deployed to railway.
+I will be working on the front end and final polish for my presentation.
+
 # SetList
 
 A REST API for tracking artists you want to see live and logging concerts you've attended, with real-time event discovery powered by the Ticketmaster API.
