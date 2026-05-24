@@ -1,8 +1,11 @@
 {
   "extends": ["airbnb-base", "prettier"],
   "plugins": ["prettier"],
+  "env": {
+    "jest": true
+  },
   "rules": {
-    "import/extensions": ["error", "ignorePackages", { "js": "always" }],
+    "import/extensions": ["error", "ignorePackages", { "js": "never" }],
     "no-console": "warn",
     "prettier/prettier": "error",
     "no-unused-vars": [
@@ -12,5 +15,5 @@
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "no-param-reassign": ["error", { "props": false }]
   },
-  "ignorePatterns": [".github/**"]
+  "ignorePatterns": [".github/**", "dist/"]
 }
