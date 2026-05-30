@@ -41,9 +41,11 @@ export default function SetList() {
       ]);
       const eventsData = await eventsRes.json();
       const showsData = await showsRes.json();
-      
-      setEvents(eventsData._embedded.events);
 
+      if (eventsData) {
+        setEvents(eventsData._embedded.events);
+      }
+      
       const wishlist = {};
       const attended = {};
       showsData.forEach(show => {
@@ -101,7 +103,6 @@ export default function SetList() {
           <button onClick={() => eventsClick()}>Upcoming Events</button>
           <button>My Events</button>
           <button>My Artists</button>
-          {console.log(events)}
           <div>
             <ul>
               {events.map((event) => {
