@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
         { _id: user._id, email: user.email, roles: user.roles },
         JWT_SECRET,
         {
-          expiresIn: '15m',
+          expiresIn: '24h',
         },
       );
       return res.status(200).json({ token });
