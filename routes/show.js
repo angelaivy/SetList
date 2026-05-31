@@ -68,7 +68,7 @@ router.delete('/:id', isAuthorized, async (req, res) => {
     if (!showToDelete) {
       return res.sendStatus(401);
     }
-    return res.sendStatus(200).send('show successfully deleted');
+    return res.status(200).send('show successfully deleted');
   } catch (e) {
     return res.status(500).send(e.message);
   }

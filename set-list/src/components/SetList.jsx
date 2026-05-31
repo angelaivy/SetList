@@ -35,9 +35,9 @@ export default function SetList() {
       <h1>SetList 🎵</h1>
       {isLoggedIn && 
         <>
-          <h2>Welcome</h2>
           {isHome && (
             <div>
+              <h2>Welcome</h2>
               <Link to="/events">Upcoming Events</Link>
               <Link to="/shows">My Shows</Link>
               <Link to="/artists">My Artists</Link>
