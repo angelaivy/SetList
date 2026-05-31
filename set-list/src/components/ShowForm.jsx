@@ -28,6 +28,7 @@ export default function ShowForm({ type, id, showData = {}, onSuccess }) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formDataToJson = JSON.parse(JSON.stringify(Object.fromEntries(formData)));
+     // showData preserves preexisting fields when updating a show.
     const dataFormatted = {
       name: formDataToJson.showName || showData.name,
       showDetails: {
@@ -92,8 +93,8 @@ export default function ShowForm({ type, id, showData = {}, onSuccess }) {
         <option value="Attended">Attended</option>
       </select>
 
-      <label htmlFor="notes"></label>
-      <input id="notes" name="notes" rows="5"/>
+      <label htmlFor="notes">Notes</label>
+      <textarea id="notes" name="notes" rows="5"/>
 
       <button type="submit">{submitText}</button>
     </form>
