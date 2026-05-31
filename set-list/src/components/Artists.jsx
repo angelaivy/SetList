@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import ArtistForm from "./ArtistForm";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const token = localStorage.getItem('token');
 
 export default function Artists() {
   const [artists, setArtists] = useState([]);
@@ -11,6 +10,7 @@ export default function Artists() {
   const [isAddingArtist, setIsAddingArtist] = useState(false);
   
   const getArtists = async () => {
+    const token = localStorage.getItem('token');
     if (!token) return;
     try {
       const res = await fetch(`${API_BASE_URL}/artist`, {
@@ -35,6 +35,8 @@ export default function Artists() {
   }
 
   const deleteArtist = async (id) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
     try {
       const res = await fetch(`${API_BASE_URL}/artist/${id}`, {
         method: 'DELETE',
@@ -50,6 +52,8 @@ export default function Artists() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
+    if (!token) return;
     const formData = new FormData(e.currentTarget);
     const query = formData.get('q');
 

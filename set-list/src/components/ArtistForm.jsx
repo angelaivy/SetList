@@ -2,7 +2,6 @@ import { useState } from "react";
 import { data } from "react-router";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const token = localStorage.getItem('token');
 
 export default function ArtistForm({ type, id, artistData = {}, onSuccess }) {
   const [error, setError] = useState(undefined);
@@ -42,6 +41,8 @@ export default function ArtistForm({ type, id, artistData = {}, onSuccess }) {
     }
 
     try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
       const res = await fetch(action, {
         method,
         headers: { 

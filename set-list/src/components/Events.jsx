@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const token = localStorage.getItem('token');
 
 export default function Events() {
   const [events, setEvents] = useState([]);
@@ -14,6 +13,7 @@ export default function Events() {
   }, []);
 
   const eventsClick = async () => {
+    const token = localStorage.getItem('token');
     if (!token) return;
     try {
       const [eventsRes, showsRes] = await Promise.all([
@@ -44,6 +44,7 @@ export default function Events() {
   };
 
   const sendEvent = async (eventData, type) => {
+    const token = localStorage.getItem('token');
     if (!token) return;
     try {
       const res = await fetch(`${API_BASE_URL}/show`, {
