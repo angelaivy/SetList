@@ -52,7 +52,6 @@ export default function ShowForm({ type, id, showData = {}, onSuccess }) {
         body: JSON.stringify((dataFormatted))
       })
 
-
       if (res.ok) {
         const updated = await res.json();
         onSuccess(updated);

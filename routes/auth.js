@@ -69,7 +69,7 @@ router.post('/login', async (req, res) => {
 });
 
 // delete
-router.post('/delete', isAuthorized, async (req, res) => {
+router.delete('/delete', isAuthorized, async (req, res) => {
   try {
     const { email } = req.body;
     const user = await User.deleteAccount(email);
