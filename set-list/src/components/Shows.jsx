@@ -10,19 +10,19 @@ export default function Shows() {
   const [isEditingShow, setIsEditingShow] = useState(false);
   const [isAddingShow, setIsAddingShow] = useState(false);
   
-  useEffect(() => {
+  const getShows = async () => {
     if (!token) return;
-    const getShows = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/show`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        const data = await res.json();
-        setShows(data);
-      } catch (e) {
-        setError(error);
-      }
+    try {
+      const res = await fetch(`${API_BASE_URL}/show`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      setShows(data);
+    } catch (e) {
+      setError(error);
     }
+  }
+  useEffect(() => {
     getShows();
   }, []);
 
@@ -48,10 +48,33 @@ export default function Shows() {
     }
   }
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const query = formData.get('q');
+
+    try {
+      if (query) {
+          const res = await fetch(`${API_BASE_URL}/show/search?query=${query}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setShows(data);
+        }
+      }
+      if (!query) {
+        getShows()
+      }
+    } catch (e) {
+      setError(error);
+    }
+  }
+
   return (
     <div>
       {error && <p>An error occurred: {error}</p>}
-      <form>
+      <form onSubmit={handleSearch}>
         <label htmlFor="search">Search Shows</label>
         <input type="search" id="search" name="q"/>
         <button>Search</button>
@@ -67,7 +90,6 @@ export default function Shows() {
         />}
       <ul>
         {shows.map((show) => {
-          console.log(show)
           const name = show.name,
                 id = show._id,
                 artist = show.showDetails?.artist,
