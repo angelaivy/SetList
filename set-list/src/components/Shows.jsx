@@ -8,7 +8,8 @@ export default function Shows() {
   const [shows, setShows] = useState([]);
   const [error, setError] = useState(undefined);
   const [isEditingShow, setIsEditingShow] = useState(false);
-
+  const [isAddingShow, setIsAddingShow] = useState(false);
+  
   useEffect(() => {
     if (!token) return;
     const getShows = async () => {
@@ -27,6 +28,10 @@ export default function Shows() {
 
   const editShow = (id) => {
     setIsEditingShow(isEditingShow === id ? null : id);
+  }
+
+  const addShow = (id) => {
+    setIsAddingShow(!isAddingShow);
   }
 
   const deleteShow = async (id) => {
@@ -51,21 +56,29 @@ export default function Shows() {
         <input type="search" id="search" name="q"/>
         <button>Search</button>
       </form>
-      <button onClick={() => addShow()}>Add Show</button>
-      <ShowForm type="addShow" />
+      {!isAddingShow && <button onClick={() => addShow()}>Add Show</button>}
+      {isAddingShow && 
+        <ShowForm 
+          type="addShow" 
+          onSuccess={(newShow) => {
+            setShows(prev => [...prev, newShow]);
+            setIsAddingShow(false);
+          }}
+        />}
       <ul>
         {shows.map((show) => {
+          console.log(show)
           const name = show.name,
                 id = show._id,
                 artist = show.showDetails?.artist,
-                //date = show.showDetails?.date,
                 date = show.showDetails?.date ? new Date(show.showDetails.date) : null,
-                dateFormatted = new Intl.DateTimeFormat('en-US', {
+                dateFormatted = date ? new Intl.DateTimeFormat('en-US', {
                   month: 'long',
                   day: 'numeric',
                   year: 'numeric'
-                }).format(date),
-                rawDate = show.showDetails?.rawDate,
+                }).format(date) : null,
+                dateRaw = show.showDetails?.dateRaw,
+                displayDate = dateFormatted || dateRaw,
                 venue = show.showDetails?.venue,
                 notes = show.notes,
                 rating = show.rating,
@@ -75,8 +88,7 @@ export default function Shows() {
               <h2>{artist}</h2>
               <p>{name}</p>
               {venue && <p>{venue}</p>}
-              {dateFormatted && <p>{dateFormatted}</p>}
-              {rawDate && <p>{rawDate}</p>}
+              {displayDate && <p>{displayDate}</p>}
               <p>{status}</p>
               {rating && <p>rating: {rating}</p>}
               {notes && <p>notes: {notes}</p>}
@@ -85,7 +97,7 @@ export default function Shows() {
                 <ShowForm 
                   type="updateShow" 
                   id={id}
-                  showData={{ name, artist, venue, notes, rating, status, date: rawDate }}
+                  showData={{ name, artist, venue, notes, rating, status, dateRaw }}
                   onSuccess={(updated) => {
                     setShows(prev => prev.map(show => show._id === id ? updated : show));
                     setIsEditingShow(false);
