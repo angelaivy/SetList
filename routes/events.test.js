@@ -16,9 +16,8 @@ describe('/events', () => {
   });
 
   const { TICKETMASTER_API_KEY } = process.env;
-  const size = 10;
-  const page = 1;
-  const tmApiEndpoint = `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&size=${size}&page=${page}&apikey=${TICKETMASTER_API_KEY}`;
+  const size = 75;
+  const tmApiEndpoint = `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&size=${size}&apikey=${TICKETMASTER_API_KEY}`;
 
   it('returns 200 & api results with response ok', async () => {
     const mockData = {
