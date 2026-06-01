@@ -110,7 +110,7 @@ describe('/auth', () => {
 
     it('should return 200', async () => {
       const res = await request(server)
-        .post('/auth/delete')
+        .delete('/auth/delete')
         .set('Authorization', `Bearer ${token}`)
         .send(user);
       expect(res.statusCode).toEqual(200);
@@ -120,7 +120,7 @@ describe('/auth', () => {
 
     it('should return 401 when no email is provided', async () => {
       const res = await request(server)
-        .post('/auth/delete')
+        .delete('/auth/delete')
         .set('Authorization', `Bearer ${token}`)
         .send({});
       expect(res.statusCode).toEqual(401);

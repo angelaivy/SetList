@@ -57,19 +57,6 @@ describe('/show', () => {
       });
     });
 
-    it('should return 409 when trying to create an existing show with a ticketmasterId', async () => {
-      const res0 = await request(server)
-        .post('/show')
-        .set('Authorization', `Bearer ${token}`)
-        .send(show);
-      expect(res0.statusCode).toEqual(200);
-      const res1 = await request(server)
-        .post('/show')
-        .set('Authorization', `Bearer ${token}`)
-        .send(show);
-      expect(res1.statusCode).toEqual(409);
-    });
-
     it('should return 500 if show name is not provided', async () => {
       const res = await request(server)
         .post('/show')

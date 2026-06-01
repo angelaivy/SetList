@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
         { _id: user._id, email: user.email, roles: user.roles },
         JWT_SECRET,
         {
-          expiresIn: '15m',
+          expiresIn: '24h',
         },
       );
       return res.status(200).json({ token });
@@ -69,7 +69,7 @@ router.post('/login', async (req, res) => {
 });
 
 // delete
-router.post('/delete', isAuthorized, async (req, res) => {
+router.delete('/delete', isAuthorized, async (req, res) => {
   try {
     const { email } = req.body;
     const user = await User.deleteAccount(email);

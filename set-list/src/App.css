@@ -1,0 +1,100 @@
+/* Down and dirty css, not refined */
+main {
+  text-align: center;
+}
+
+button {
+  min-width: 200px;
+  margin: 20px !important;
+}
+
+h2 {
+  padding: 20px;
+}
+
+h3 {
+  padding-bottom: 10px;
+}
+
+li {
+  list-style: none;
+}
+
+nav a {
+  display: inline-block!important;
+  margin-right: 20px;
+}
+
+[data-typesettings] nav button {
+  font-size: 12px;
+  min-width: 100px;
+  text-transform: up;
+}
+
+p.error {
+  color: red;
+  font-weight: bold;
+}
+
+p.success {
+  color: black;
+  font-weight: bold;
+}
+
+.formWrapper {
+  margin: 20px 0 20px 0;
+  display: grid;
+  grid-template-columns: 100px 300px;
+  justify-content: center;
+  text-align: left;
+}
+
+form label {
+  margin-right: 20px;
+}
+
+.homePageLinks a {
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  font-family: var(--ts-font-family-monospace);
+  font-weight: var(--ts-font-weight-regular);
+  -webkit-appearance: button;
+  color: black !important;
+  border: 1px solid black;
+  padding: 10px 20px;
+  margin: 20px;
+  min-width: 200px;
+}
+
+.homePageLinks a:hover {
+  border-bottom: 1px solid black;
+  background-color: rgb(224, 223, 223);
+}
+
+.events img {
+  max-width: 100%;
+  width: 100%;
+}
+
+.grid ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.grid li p {
+  margin: 0;
+}
+
+.grid li button {
+  margin: 10px 0!important;
+}
+
+.shows.grid ul,
+.artists.grid ul {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.artists.grid input[type='checkbox'] {
+  width: 20px;
+}
