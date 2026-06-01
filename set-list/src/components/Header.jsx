@@ -1,10 +1,12 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export default function Header({ setIsLoggedIn }) {
+export default function Header({ setIsLoggedIn, isLoggedIn }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const isHome = location.pathname === '/';
   const [error, setError] = useState(undefined);
 
@@ -35,6 +37,7 @@ export default function Header({ setIsLoggedIn }) {
       if (res.ok) {
       localStorage.removeItem('token');
       setIsLoggedIn(false);
+      navigate('/');
     }
 
     } catch (e) {
@@ -45,15 +48,19 @@ export default function Header({ setIsLoggedIn }) {
   return (
     <header>
       <nav>
-        {!isHome && (
+        {!isHome &&
           <>
             <Link to="/events">Upcoming Events</Link>
             <Link to="/shows">My Shows</Link>
             <Link to="/artists">My Artists</Link>
           </>
-        )}
-        <button onClick={() => signOut()}>Sign out</button>
-        <button onClick={() => deleteAccount()}>Delete Account</button>
+        }
+        {isLoggedIn && 
+        <>
+          <button onClick={() => signOut()}>Sign out</button>
+          <button onClick={() => deleteAccount()}>Delete Account</button>
+        </>
+        }
         {error && <p>{error}</p>}
       </nav>
     </header>

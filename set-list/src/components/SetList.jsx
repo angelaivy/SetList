@@ -31,32 +31,34 @@ export default function SetList() {
 
   return (
     <>
-      <Header setIsLoggedIn={setIsLoggedIn}/>
-      <h1>SetList 🎵</h1>
-      {isLoggedIn && 
-        <>
-          {isHome && (
-            <div>
-              <h2>Welcome</h2>
-              <Link to="/events">Upcoming Events</Link>
-              <Link to="/shows">My Shows</Link>
-              <Link to="/artists">My Artists</Link>
-            </div>
-          )}
-          <Outlet />
-        </>
-      }
-      {!isLoggedIn && 
-        <>
-          <button id="create" onClick={(e) => showInputs(e)}>Create an account</button>
-          <button id="login" onClick={(e) => showInputs(e)}>Login</button>
+      <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>
+      <main>
+        <h1>SetList 🎵</h1>
+        {isLoggedIn && 
+          <>
+            {isHome && (
+              <div>
+                <h2>Welcome</h2>
+                <Link to="/events">Upcoming Events</Link>
+                <Link to="/shows">My Shows</Link>
+                <Link to="/artists">My Artists</Link>
+              </div>
+            )}
+            <Outlet />
+          </>
+        }
+        {!isLoggedIn && 
+          <>
+            <button id="create" onClick={(e) => showInputs(e)}>Create an account</button>
+            <button id="login" onClick={(e) => showInputs(e)}>Login</button>
 
-          {showCreateAccountForm && !isAccountCreated && <Form action={`${API_BASE_URL}/auth/signup`} type="create" submitText="Create account" setIsAccountCreated={setIsAccountCreated}/>}
-          {isAccountCreated && <p>Account created! Please login.</p>}
-          {showLoginForm && <Form action={`${API_BASE_URL}/auth/login`} type="login" submitText="Login to account" setIsLoggedIn={setIsLoggedIn}/>}
-        </>
-      }
-      {error && <p>An error occurred: {error}</p>}
+            {showCreateAccountForm && !isAccountCreated && <Form action={`${API_BASE_URL}/auth/signup`} type="create" submitText="Create account" setIsAccountCreated={setIsAccountCreated}/>}
+            {isAccountCreated && <p>Account created! Please login.</p>}
+            {showLoginForm && <Form action={`${API_BASE_URL}/auth/login`} type="login" submitText="Login to account" setIsLoggedIn={setIsLoggedIn}/>}
+          </>
+        }
+        {error && <p>An error occurred: {error}</p>}
+      </main>
     </>
   );
 }
