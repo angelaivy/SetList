@@ -76,13 +76,17 @@ export default function Shows() {
   }
 
   return (
-    <div>
-      {error && <p>An error occurred: {error}</p>}
+    <div class="shows grid">
+      <h2>My Shows</h2>
+
+      {error && <p className="error">An error occurred: {error}</p>}
+
       <form onSubmit={handleSearch}>
         <label htmlFor="search">Search Shows</label>
         <input type="search" id="search" name="q"/>
         <button>Search</button>
       </form>
+
       {!isAddingShow && <button onClick={() => addShow()}>Add Show</button>}
       {isAddingShow && 
         <ShowForm 
@@ -111,7 +115,7 @@ export default function Shows() {
                 status = show.status;
           return (
             <li key={id}>
-              <h2>{artist}</h2>
+              <h3>{artist}</h3>
               <p>{name}</p>
               {venue && <p>{venue}</p>}
               {displayDate && <p>{displayDate}</p>}

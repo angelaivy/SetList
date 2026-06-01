@@ -72,8 +72,9 @@ export default function Events() {
   };
 
   return (
-    <div>
-      {error && <p>An error occurred: {error}</p>}
+    <div class="events grid">
+      <h2>Upcoming Events</h2>
+      {error && <p className='error'>An error occurred: {error}</p>}
       <ul>
         {events.map((event) => {
           const id = event.id,
@@ -89,10 +90,10 @@ export default function Events() {
                 img = event.images[0]?.url;
           return (
             <li key={id}>
-              <img src={img} alt="" style={{width: "500px"}}/>
-              <div>{name}</div>
-              <div>{dateFormatted}</div>
-              <div>{venue}</div>
+              <img src={img} alt=""/>
+              <h3>{name}</h3>
+              <p>{dateFormatted}</p>
+              <p>{venue}</p>
               {!addedEvents[id] && 
                 <button onClick={() => sendEvent({
                   name,

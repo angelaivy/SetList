@@ -41,12 +41,17 @@ export default function Form({action, type, submitText, setIsLoggedIn, setIsAcco
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="email" required>Email</label>
-      <input type="email" id="email" name="email" required autoComplete="on"/>
-
-      <label htmlFor="password" required>Password</label>
-      <input type="password" id="password" name="password" required />
-      {error && <p>{error}</p>}
+      {error && <p class="error">{error}</p>}
+      <div className='formWrapper'>
+        <label htmlFor="email" required>Email</label>
+        <input type="email" id="email" name="email" required autoComplete="on"/>
+      </div>
+      
+      <div className='formWrapper'>
+        <label htmlFor="password" required>Password</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+      
       <button type="submit">{submitText}</button>
     </form>
   )

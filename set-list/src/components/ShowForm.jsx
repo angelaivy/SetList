@@ -70,31 +70,45 @@ export default function ShowForm({ type, id, showData = {}, onSuccess }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {error && <p>{error}</p>}
-      <label htmlFor="showName">Show Name</label>
-      <input type="text" id="showName" name="showName" required={isRequired} />
+      {error && <p className="error">{error}</p>}
+      <div className="formWrapper">
+        <label htmlFor="showName">Show</label>
+        <input type="text" id="showName" name="showName" required={isRequired} />
+      </div>
+      
+      <div className="formWrapper">
+        <label htmlFor="artist">Artist</label>
+        <input type="text" id="artist" name="artist" required={isRequired} />
+      </div>
 
-      <label htmlFor="artist">Artist</label>
-      {<input type="text" id="artist" name="artist" required={isRequired} />}
+      <div className="formWrapper">
+        <label htmlFor="venue">Venue</label>
+        <input type="text" id="venue" name="venue"/>
+      </div>
 
-      <label htmlFor="venue">Venue</label>
-      <input type="text" id="venue" name="venue"/>
-
-      <label htmlFor="date">Date</label>
-      <input type="text" id="date" name="date"/>
-
-      <label htmlFor="rating">Rating (1-5)</label>
-      <input type="number" min="1" max="5" id="rating" name="rating"/>
-
-      <label htmlFor="status">Status</label>
-      <select id="status" name="status" required={isRequired}>
-        <option value="">--Select Status--</option>
-        <option value="Wishlist">Wishlist</option>
-        <option value="Attended">Attended</option>
-      </select>
-
-      <label htmlFor="notes">Notes</label>
-      <textarea id="notes" name="notes" rows="5"/>
+      <div className="formWrapper">
+        <label htmlFor="date">Date</label>
+        <input type="text" id="date" name="date"/>
+      </div>
+      
+      <div className="formWrapper">
+          <label htmlFor="rating">Rating (1-5)</label>
+          <input type="number" min="1" max="5" id="rating" name="rating"/>
+      </div>
+    
+      <div className="formWrapper">
+        <label htmlFor="status">Status</label>
+        <select id="status" name="status" required={isRequired}>
+          <option value="">--Select Status--</option>
+          <option value="Wishlist">Wishlist</option>
+          <option value="Attended">Attended</option>
+        </select>
+      </div>
+      
+      <div className="formWrapper">
+        <label htmlFor="notes">Notes</label>
+        <textarea id="notes" name="notes" rows="5"/>
+      </div>
 
       <button type="submit">{submitText}</button>
     </form>

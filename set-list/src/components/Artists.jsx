@@ -76,13 +76,16 @@ export default function Artists() {
   }
 
   return (
-    <div>
-      {error && <p>An error occurred: {error}</p>}
+    <div className="artists grid">
+      <h2>My Artists</h2>
+      {error && <p className="error">An error occurred: {error}</p>}
+
       <form onSubmit={handleSearch}>
         <label htmlFor="search">Search Artists</label>
         <input type="search" id="search" name="q"/>
         <button>Search</button>
       </form>
+
       {!isAddingArtist && <button onClick={() => addArtist()}>Add Artist</button>}
       {isAddingArtist && 
         <ArtistForm 
@@ -101,7 +104,7 @@ export default function Artists() {
                 favorite = artist.favorite;
           return (
             <li key={id}>
-              <h2>{name}{favorite && <span>★</span>}</h2>
+              <h3>{name}{favorite && <span>★</span>}</h3>
               {genre && <p>{genre}</p>}
               {notes && <p>notes: {notes}</p>}
               <button onClick={() => editArtist(id)}>Edit Artist</button>

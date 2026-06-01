@@ -15,6 +15,7 @@ export default function Header({ setIsLoggedIn, isLoggedIn }) {
     if (token) {
       localStorage.removeItem('token');
       setIsLoggedIn(false);
+      navigate('/');
     }
   };
 

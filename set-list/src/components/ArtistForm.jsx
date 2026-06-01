@@ -70,19 +70,26 @@ export default function ArtistForm({ type, id, artistData = {}, onSuccess }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {error && <p>{error}</p>}
-      <label htmlFor="artistName">Artist Name</label>
-      <input type="text" id="artistName" name="artistName" required={isRequired} />
+      {error && <p className="error">{error}</p>}
+      <div className="formWrapper">
+        <label htmlFor="artistName">Artist Name</label>
+        <input type="text" id="artistName" name="artistName" required={isRequired} />
+      </div>
 
-      <label htmlFor="genre">Genre</label>
-      <input type="text" id="genre" name="genre"/>
+      <div className="formWrapper">
+        <label htmlFor="genre">Genre</label>
+        <input type="text" id="genre" name="genre"/>
+      </div>
+      
+      <div className="formWrapper">
+        <label htmlFor="favorite">Favorite</label>
+        <input type="checkbox" id="favorite" name="favorite" onChange={handleChange} checked={isChecked} />
+      </div>
 
-      <label htmlFor="favorite">Favorite</label>
-      <input type="checkbox" id="favorite" name="favorite" onChange={handleChange} checked={isChecked} />
-
-      <label htmlFor="notes">Notes</label>
-      <textarea id="notes" name="notes" rows="5"/>
-
+      <div className="formWrapper">
+        <label htmlFor="notes">Notes</label>
+        <textarea id="notes" name="notes" rows="5"/>
+      </div>
       <button type="submit">{submitText}</button>
     </form>
   )
