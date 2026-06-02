@@ -15,5 +15,5 @@ export const updateArtist = async (id, userId, updatedObj) =>
 export const deleteArtist = async (id, userId) =>
   models.Artist.findOneAndDelete({ _id: id, userId });
 
-export const searchArtists = async (query) =>
-  models.Artist.find({ $text: { $search: query } });
+export const searchArtists = async (query, userId) =>
+  models.Artist.find({ $text: { $search: query }, userId });

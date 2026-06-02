@@ -80,7 +80,7 @@ router.get('/search', isAuthorized, async (req, res) => {
     if (!query || typeof query !== 'string') {
       return res.status(400).send('Search query required');
     }
-    const results = await Show.searchShows(query);
+    const results = await Show.searchShows(query, req.user._id);
     return res.status(200).send(results);
   } catch (e) {
     return res.status(500).send(e.message);

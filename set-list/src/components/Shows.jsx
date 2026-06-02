@@ -76,7 +76,7 @@ export default function Shows() {
   }
 
   return (
-    <div class="shows grid">
+    <div className="shows grid">
       <h2>My Shows</h2>
 
       {error && <p className="error">An error occurred: {error}</p>}

@@ -21,6 +21,7 @@ export default function Form({action, type, submitText, setIsLoggedIn, setIsAcco
           const { token } = await res.json();
           localStorage.setItem('token', token);
           setIsLoggedIn(token);
+          setIsAccountCreated(false);
         }
         if (type === 'create') {
           setIsAccountCreated(true);
@@ -41,7 +42,7 @@ export default function Form({action, type, submitText, setIsLoggedIn, setIsAcco
 
   return (
     <form onSubmit={handleSubmit}>
-      {error && <p class="error">{error}</p>}
+      {error && <p className="error">{error}</p>}
       <div className='formWrapper'>
         <label htmlFor="email" required>Email</label>
         <input type="email" id="email" name="email" required autoComplete="on"/>

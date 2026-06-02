@@ -14,5 +14,5 @@ export const updateShow = async (id, userId, updatedObj) =>
 export const deleteShow = async (id, userId) =>
   models.Show.findOneAndDelete({ _id: id, userId });
 
-export const searchShows = async (query) =>
-  models.Show.find({ $text: { $search: query } });
+export const searchShows = async (query, userId) =>
+  models.Show.find({ $text: { $search: query }, userId });

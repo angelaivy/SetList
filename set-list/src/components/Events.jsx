@@ -72,7 +72,7 @@ export default function Events() {
   };
 
   return (
-    <div class="events grid">
+    <div className="events grid">
       <h2>Upcoming Events</h2>
       {error && <p className='error'>An error occurred: {error}</p>}
       <ul>

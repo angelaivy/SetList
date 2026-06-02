@@ -37,7 +37,7 @@ export default function SetList() {
         {isLoggedIn && 
           <>
             {isHome && (
-              <div class="homePageLinks">
+              <div className="homePageLinks">
                 <h2>Welcome</h2>
                 <Link to="/events">Upcoming Events</Link>
                 <Link to="/shows">My Shows</Link>
@@ -53,8 +53,8 @@ export default function SetList() {
             <button id="login" onClick={(e) => showInputs(e)}>Login</button>
 
             {showCreateAccountForm && !isAccountCreated && <Form action={`${API_BASE_URL}/auth/signup`} type="create" submitText="Create account" setIsAccountCreated={setIsAccountCreated}/>}
-            {isAccountCreated && <p class="success">Account created! Please login.</p>}
-            {showLoginForm && <Form action={`${API_BASE_URL}/auth/login`} type="login" submitText="Login to account" setIsLoggedIn={setIsLoggedIn}/>}
+            {isAccountCreated && <p className="success">Account created! Please login.</p>}
+            {showLoginForm && <Form action={`${API_BASE_URL}/auth/login`} type="login" submitText="Login to account" setIsLoggedIn={setIsLoggedIn} setIsAccountCreated={setIsAccountCreated}/>}
           </>
         }
         {error && <p>An error occurred: {error}</p>}
